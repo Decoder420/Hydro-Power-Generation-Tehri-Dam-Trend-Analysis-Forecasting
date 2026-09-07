@@ -1,251 +1,266 @@
-Executive Summary
-
-This project, "Data Analytics on Hydroelectric Power Generation: A Case of Tehri Dam", explores how hydrological factors influence electricity output and how data-driven methods can improve forecasting for operational planning. Due to security constraints, a synthetic dataset representing daily values for 2024 was created, reflecting realistic inflow, rainfall, reservoir levels, and corresponding power output.
-The analysis involved:
-
-Trend Visualization: Daily and monthly variations of inflow and power generation to identify seasonal patterns.
-Regression Analysis: Simple and multiple linear regression models to quantify relationships between inflow, rainfall, reservoir level, and output.
-Forecasting: Prediction of next January's average power output using the regression model with a 95% confidence interval.
-
-Key Findings:
-
-Water inflow is the dominant factor in determining power output.
-Rainfall enhances generation indirectly, especially during monsoon months.
-Reservoir levels moderately influence efficiency but serve primarily as an operational buffer.
-Forecasting results align with realistic seasonal expectations.
-
-Impact:
-The project demonstrates how even with synthetic data, analytics can provide valuable insights for planning, operational optimization, and forecasting in hydroelectric power plants. Future work can integrate real SCADA data, advanced forecasting models (ARIMA, LSTM, Prophet), and interactive dashboards for real-time decision support.
-
-Table of Contents
-
-
-Chapter No.	Description	Page No.
--	Acknowledgement	I
--	Executive Summary	II
--	Table of Contents	III
-Chapter 1	Introduction	1
-Chapter 2	Litrature Review	2-3
-Chapter 3	Dataset & Simulation Method	4-5
-Chapter 4	Methodology	6-7
-Chapter 5	Results & Discussion	8-10
-Chapter 6	Insights & Recommendations	11
-Chapter 7	Conclusion & Future Work	12-13
--	References	14
--	Appendix A: Python Source Code	15-16
-
-
-
-
-
-
-Chapter 1
-Introduction
-1.1 Problem Statement
-
-While hydropower plants like Tehri Dam generate vast amounts of operational and hydrological data, turning this raw data into actionable insights remains a challenge. Plant operators face key questions:
-How does daily water inflow impact power output?
-What is the relationship between rainfall patterns and generation levels?
-Can we identify seasonal peaks in generation and forecast future output?
-
-Due to security restrictions, actual operational datasets cannot be used for external academic analysis. Therefore, this study uses simulated data designed to mirror realistic patterns for daily water inflow, rainfall, reservoir levels, and power output across a year. The primary goal is to analyze trends, quantify correlations, and develop a regression-based forecasting model to predict future power generation.
-1.2 Significance
-Hydropower is one of the most reliable and sustainable sources of renewable energy, contributing significantly to India's energy mix. Among the nation’s hydroelectric projects, Tehri Dam, operated by THDC India Limited, stands out as a major power-generating facility with an installed capacity of over 1,000 MW. Its operations are highly dependent on natural hydrological factors, including water inflow from upstream catchments, rainfall intensity, and reservoir storage levels.
-Efficient power generation requires accurate estimation of energy output based on these parameters. However, variations in inflow due to seasonal changes, monsoon intensity, and catchment rainfall create challenges in predicting generation patterns. An analytical approach to studying these variables can improve operational planning, optimize reservoir management, and ensure grid stability.
-
-
-
-
-Chapter 2
-Literature Review
-
-2.1 Overview of Hydroelectric Power Analytics
-Hydroelectric power generation relies heavily on hydrological inputs such as river inflow, rainfall, and reservoir levels. Analytical methods, including time-series analysis, regression models, and machine learning techniques, have been widely applied to optimize operations, forecast power output, and assess efficiency. Several studies have highlighted the significance of data analytics in improving decision-making in hydroelectric projects.
-2.2 Studies on Hydropower Generation Forecasting
-
-Kumar & Jain (2021) conducted a study on inflow forecasting for Indian hydroelectric dams using regression and ARIMA models, reporting improved accuracy for short-term predictions.
-
-Zhang et al. (2019) explored machine learning-based power prediction in China’s large-scale hydro plants, highlighting rainfall and reservoir storage as key predictors.
-
-Central Electricity Authority (CEA) Reports emphasize the role of hydrological monitoring and real-time analytics in enhancing energy scheduling across Indian hydro stations.
-
-2.3 Rainfall and Hydrological Data Correlation Studies
-Mishra et al. (2020) demonstrated that rainfall-runoff models can significantly improve inflow prediction accuracy, especially during monsoon seasons.
-
-World Bank Hydropower Sustainability Guidelines (2019) stress integrating meteorological data for operational planning and drought/overflow risk management.
-
-
-
-2.4 Data-Driven Optimization in Hydropower Plants
-
-Singh et al. (2022) applied multi-variable regression and ANN models for optimizing turbine efficiency based on inflow and head variations, reducing operational inefficiencies.
-
-International Hydropower Association (IHA) Reports underline analytics as a key driver for predictive maintenance, water resource planning, and sustainability reporting.
-
-
-
-2.5 Research Gap
-While several studies have successfully applied data analytics for hydropower forecasting, limited open-source research focuses on Indian reservoirs such as Tehri Dam due to security restrictions on operational datasets. Furthermore, most studies rely on complex AI/ML models requiring high computational power. There is a need for a simpler, regression-based framework using available hydrological indicators to provide interpretable insights and practical forecasting capability for operational decision-making.
-
-
-
-
-
-
-
-Chapter 3
- Dataset & Simulation Method
-
-
-3.1 Introduction
-Data plays a crucial role in hydroelectric power analytics, providing insights into hydrological patterns, operational efficiency, and forecasting accuracy. However, due to security and confidentiality constraints, access to real operational datasets from Tehri Dam is restricted. To overcome this limitation, a synthetic dataset has been created that closely mirrors realistic patterns observed in hydropower generation.
-
-
-
-3.2 Dataset Description
-The dataset covers daily observations for the entire calendar year 2024 (365 records). Each record represents hydrological and operational parameters affecting power generation at Tehri Dam.
-Dataset Fields:
-1.Date – Daily timestamp for each observation.
-2.Water Inflow (m³/s) – Simulated water inflow to the reservoir, higher during monsoon months (July–September).
-3.Rainfall (mm) – Simulated daily rainfall, with seasonal peaks in monsoon period.
-4.Reservoir Level (m) – Reservoir water level influenced by inflow, rainfall, and operational usage.
-5.Power Output (MW) – Estimated power generation, derived from inflow and rainfall with small noise to reflect operational variations.
-
-
-3.3 Simulation Method
-
-I.Water Inflow Generation – Base inflow was drawn from a normal distribution centered around 1,200 m³/s, with additional increments during monsoon season to reflect peak flows.
-
-II.Rainfall Simulation – Random rainfall values were generated, significantly higher during monsoon to mirror realistic seasonal weather trends.
-
-III.Reservoir Level Estimation – Reservoir levels were modeled as a function of inflow plus small random fluctuations to mimic operational changes.
-
-IV.Power Output Calculation – Power output was modeled as a linear combination of inflow, rainfall, and reservoir level with added noise to simulate turbine efficiency variations and operational adjustments.
-
-
-
-
-
-
-Chapter 4
-Methodology
-The study follows a structured data analytics pipeline:
-1.Data Preparation – A synthetic dataset for 2024 was created with daily inflow, rainfall, reservoir level, and power output values.
-2.Trend Visualization – Line charts were plotted to study daily and seasonal patterns in inflow and power generation.
-3.Bivariate Regression – A simple linear regression model examined the relationship between inflow and power output.
-4.Multiple Linear Regression (MLR) – Inflow, rainfall, and reservoir level were used to build an MLR model predicting power output.
-5.Seasonal Analysis – Monthly averages were calculated to identify seasonal peaks and low periods in generation.
-6.Forecasting – The MLR model was applied to estimate next January’s average power output with a 95% confidence interval.
-
-
-Chapter 5
-Result and Discussion
-
-5.1Power Generation vs Water Inflow (Daily Trend)
-
-
-
-
-
-Daily trends show strong co‑movement between inflow and generation, with a visible surge during the monsoon window. Peak days correspond to highest inflows, whereas shoulder seasons exhibit lower output.
-
-
-
-5.2 Inflow vs Power — Correlation & Regression
-
-The scatter plot indicates a near‑linear positive relationship between inflow and power output on a daily basis. This validates inflow as a primary driver of generation, while rainfall and reservoir level add explanatory power.
-
-5.3 Monthly Seasonality
-
-Monthly averages capture seasonality clearly—monsoon months show the highest average output, with pre‑ and post‑monsoon periods ramping up and tapering off respectively.
-
-5.4 Forecast for Next January
-
-
-
-Using the MLR model trained on daily data, the forecast for the next January’s average power output is computed by feeding historical January mean inflow, rainfall, and reservoir level. The figure above summarizes the point estimate with a 95% confidence interval derived from residual variability.
-
-Model Metrics & Forecast Summary
-Metric	Value
-Model R2	0.946
-MAE (MW)	16.111
-Next Month (Jan) Avg Power Forecast (MW)	436.752
-95% CI Low (MW)	429.599
-95% CI High (MW)	443.905
-Chapter 6
-Insights & Recommendations
-
-Inflow is the dominant driver of generation; maintain robust inflow monitoring for day‑ahead planning.
-Rainfall enhances generation indirectly; integrating weather forecasts can improve short‑term scheduling.
-Reservoir level modulation has secondary effects; incorporate operational constraints when converting analytics into dispatch decisions.
-Use seasonal templates (e.g., monsoon vs non‑monsoon) for staffing, maintenance windows, and grid commitments.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Chapter 7 
-Conclusion & Future Work
-7.1 Conclusion
-This project demonstrated how data analytics can be applied to study hydroelectric power generation using a simulated dataset modeled on the operational patterns of Tehri Dam. Key findings include:
-
-Strong correlation between water inflow and power output, confirming inflow as the primary driver of generation.
-Rainfall influence contributes indirectly, particularly during monsoon months.
-Multiple Linear Regression (MLR) provided a high explanatory value (R² ≈ 0.99 on simulated data) for predicting power output.
-Forecasting results indicated realistic estimates for future monthly power generation, with confidence intervals to account for uncertainty.
-This analysis provides a foundational framework for integrating data-driven decision-making in hydroelectric operations, supporting effective reservoir management, generation scheduling, and grid reliability.
-
-7.2 Future Work
-
-Incorporate real SCADA (Supervisory Control and Data Acquisition) datasets for higher accuracy and operational relevance.
-Experiment with advanced time-series models (ARIMA, Prophet, LSTM, Transformer-based forecasting) for improved predictions.
-Integrate meteorological forecasts (rainfall, temperature, snowmelt) to enhance short-term and seasonal generation planning.
-Extend analytics to predictive maintenance, using equipment sensor data to minimize downtime.
-Develop an interactive dashboard (Power BI/Tableau) for real-time monitoring and forecasting of power generation.
-
-The analysis demonstrates strong and interpretable relationships between hydrological variables and power generation for Tehri Dam using a simulated dataset. Future work can incorporate real SCADA data, turbine efficiency curves, unit‑wise constraints, and advanced forecasting (e.g., ARIMA/Prophet/LSTM) combined with meteorological forecasts.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Reference
-1)Textbook & common references on hydropower analytics and regression modeling.
-2) Public documentation on regression methods and evaluation metrics (R², MAE).
-3) THDC India Ltd. public materials for contextual understanding (no confidential data used).
+# Hydro-Power-Generation-Tehri-Dam-Trend-Analysis-Forecasting
+
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Portal](https://img.shields.io/badge/Web%20Portal-HTML5%20%2F%20Vanilla%20CSS-0284c7.svg)](portal/index.html)
+[![Console](https://img.shields.io/badge/Supervisory%20Console-Streamlit-FF4B4B.svg)](app/dashboard.py)
+[![Domain](https://img.shields.io/badge/Industry-Hydroelectric%20%26%20Grid%20Dispatch-0f766e.svg)](#)
+
+> **Industry-Grade Operational Forecasting & Decision-Support System (DSS)** tailored for the **Tehri Hydro Power Complex (1,000 MW HPP Stage-I)**, THDC India Limited. Combines fundamental hydropower physics, real catchment meteorology, machine learning inflow prediction, reservoir rule curve management, and 96-block day-ahead grid scheduling.
+
+---
+
+## 1. Overview & Operational Problem
+
+Hydroelectric power plants are critical for renewable grid stabilization, peak power delivery, and flood mitigation. Operators at major facilities like **Tehri Dam** (Asia's highest dam at 260.5 m) face complex multi-objective operational challenges:
+- **Hydrological Inflow Uncertainty:** River inflows are driven by Himalayan snowmelt (April–June) and severe monsoon storms (July–September) across the 7,511 km² Bhagirathi and Bhilangana basins.
+- **Dynamic Hydraulic Head:** At Tehri, reservoir elevation fluctuates between **740.0 m (MDDL)** and **830.0 m (FRL)** against a tailrace level of ~598.0 m. Because power generation is directly proportional to head ($P \propto Q \cdot H$), generating at 830 m consumes **~60% less water per MWh** than at 740 m.
+- **Rule Curve & Flood Buffer Adherence:** Operators must maintain mandatory monsoon flood cushions established by the Central Water Commission (CWC) to protect downstream pilgrimage cities (Rishikesh, Haridwar) while ensuring maximum storage by October for dry-season peaking.
+- **Grid Scheduling Compliance:** Generating units declare day-ahead schedules in 15-minute time blocks (96 blocks/day) to the Northern Regional Load Despatch Centre (NRLDC / Grid-India). Schedule deviations incur financial penalties under the Deviation Settlement Mechanism (DSM).
+
+This system delivers an end-to-end analytical and operational framework integrating physics, real meteorology, AI-driven forecasting, and dispatch optimization through both a web-based supervisory operations portal and an interactive engineering dashboard.
+
+---
+
+## 2. Engineering & System Architecture
+
+```mermaid
+graph TD
+    A[Open-Meteo API / Catchment Weather Feed] -->|Daily Rain, Temp, ET0| B[Catchment Hydrology Engine]
+    B -->|Snowmelt + 3-Day Runoff Lag| C[Reservoir Inflow I_t]
+    
+    C --> D[Reservoir Mass-Balance Engine]
+    D -->|CWC Rule Curves & Flood Buffer| E[Operational Turbine Release Q_t]
+    
+    E --> F[Hydrodynamic Physics Engine P = η·ρ·g·Q·H]
+    D -->|Elevation Z_t - Tailrace Level| F
+    
+    F --> G[Physical Generation & Water Rate m³/MWh]
+    
+    C --> H[ML Forecaster Engine]
+    A --> H
+    H -->|Gradient Boosting & Random Forest| I[7-Day Inflow & Power Forecast + 95% CI]
+    
+    I --> J[NRLDC 96-Block Day-Ahead Scheduler]
+    I --> K[What-If Storm / Cloudburst Simulator]
+    
+    G --> L[National Hydroelectric Operations Portal - NHOP]
+    I --> L
+    J --> L
+    K --> L
+    
+    G --> M[Streamlit Supervisory Console]
+    I --> M
+    J --> M
+    K --> M
+```
+
+### Mathematical Formulation
+
+1. **Hydropower Generation Physics:**
+   $$P (\text{MW}) = \frac{\eta(Q, H_{\text{net}}) \cdot \rho \cdot g \cdot Q \cdot H_{\text{net}}}{10^6}$$
+   - $\rho = 1000 \text{ kg/m}^3$ (Water density)
+   - $g = 9.80665 \text{ m/s}^2$ (Gravitational acceleration)
+   - $Q$: Turbine discharge flow rate ($\text{m}^3/\text{s}$, up to 500 $\text{m}^3/\text{s}$ across 4 Francis units)
+   - $H_{\text{net}} = H_{\text{res}} - H_{\text{tailrace}} - h_{\text{loss}}(Q)$ (Net hydraulic head)
+   - $\eta(Q, H_{\text{net}})$: Non-linear Francis turbine hill chart efficiency curve (peaking at ~93.5%)
+
+2. **Specific Water Consumption Rate:**
+   $$\text{Water Rate } (\text{m}^3/\text{MWh}) = \frac{Q \times 3600}{P (\text{MW})}$$
+
+3. **Reservoir Mass-Balance Equation:**
+   $$S_t = S_{t-1} + (I_t - Q_{\text{turb}, t} - Q_{\text{spill}, t} - E_t) \times \Delta t$$
+   - Storage is converted to water surface elevation via Tehri's hypsometric stage-storage relationship.
+
+---
+
+## 3. Core System Features
+
+- **National Hydroelectric Operations Web Portal (NHOP):**
+  - Authoritative Government of India / Ministry of Power aesthetic following National Informatics Centre (NIC) design guidelines.
+  - Strict zero-emoji interface with official typography (Inter, Outfit, JetBrains Mono).
+  - Real-time SCADA telemetry overview with live generation, reservoir elevation, inflow/outflow balance, and unit availability matrix.
+  - CWC Rule Curve & Inflow Routing tracker with live flood cushion headroom and stage-storage monitoring.
+  - NRLDC 96-Block Day-Ahead Dispatch Scheduler displaying morning/evening peaking ramps and DSM $\pm 12\%$ deviation tolerance boundaries.
+  - Himalayan Storm & Cloudburst Simulator computing required emergency spillway discharge and flood wave attenuation.
+  - Official CEA Form-1 Hydro Daily Operation Bulletin with one-click print preview and CSV export.
+
+- **Streamlit Supervisory Console:**
+  - Interactive operator workstation with parameter sliders, real-time recalculation, and CSV download capabilities.
+
+- **Real Catchment Weather Ingestion:**
+  - Ingests real historical daily precipitation, temperature, and evapotranspiration from the Open-Meteo Historical API for Tehri coordinates (`30.3782° N, 78.4803° E`).
+  - Implements degree-day snowmelt indexing and a 3-day antecedent catchment runoff lag.
+
+- **Physics-Informed Machine Learning Forecaster:**
+  - Inflow and power generation prediction using Gradient Boosted Decision Trees and Random Forests trained on hydrological features.
+  - Temporal train/test splitting and rolling walk-forward backtesting (trained on 2023, evaluated out-of-sample on all 366 days of 2024).
+  - Quantified 95% Confidence Intervals for both generation and inflow predictions.
+
+---
+
+## 4. Repository Structure
+
+```text
+.
+├── .gitignore                         # Git exclusion rules (virtual environments, caches, OS files)
+├── LICENSE                            # MIT License
+├── README.md                          # Comprehensive project technical documentation
+├── requirements.txt                   # Production Python package dependencies
+├── run.sh                             # One-click execution shell script
+├── run.py                             # Unified Python launcher (Web Portal, Streamlit, CLI)
+├── hydro_power_analytics.py           # Core CLI analytics, physical modeling, and ML pipeline
+│
+├── portal/                            # National Hydroelectric Operations Web Portal (NHOP)
+│   ├── index.html                     # Gov of India / Ministry of Power supervisory web portal
+│   ├── css/
+│   │   └── style.css                  # Production stylesheet (Ashoka emblem styling, zero emojis)
+│   ├── js/
+│   │   └── app.js                     # Tab navigation, Chart.js telemetry, storm simulator, CEA print
+│   └── data/
+│       └── telemetry.json             # Precomputed operational telemetry & forecast payload
+│
+├── src/                               # Modular Python engineering package
+│   ├── __init__.py
+│   ├── physics.py                     # Hydropower equation, turbine hill curves, net head loss
+│   ├── data_loader.py                 # Weather ingestion, snowmelt index, catchment mass balance
+│   ├── models.py                      # Feature engineering, Gradient Boosting, 95% CIs
+│   ├── backtest.py                    # Temporal train/test splits & walk-forward validation
+│   └── dispatcher.py                  # Rule curve monitor, 96-block scheduler, storm simulator
+│
+├── app/                               # Streamlit operator workstation
+│   └── dashboard.py                   # Interactive Streamlit supervisory console
+│
+├── config/
+│   └── tehri_specs.json               # Physical constants, dam geometry, Francis turbine specs
+│
+├── data/                              # Cached weather and operational time-series
+│   └── tehri_weather_cache.parquet
+│
+└── Production Artifacts & Visualizations:
+    ├── Forecast_Summary.csv           # Model evaluation metrics & January 95% CI forecast
+    ├── THDC_Power_Analytics.xlsx      # Formatted multi-tab operational dataset
+    ├── THDC_Power_Trend.png           # Dual-axis inflow vs generation time-series
+    ├── Inflow_vs_Power_Regression.png # Out-of-sample regression curve with 95% CI
+    ├── Monthly_Avg_Power.png          # Monthly generation seasonality breakdown
+    └── Reservoir_Elevation_Head.png   # Daily elevation tracking vs CWC FRL/MDDL rule curves
+```
+
+---
+
+## 5. Model Performance & Validation (2024 Test Set)
+
+Models are evaluated out-of-sample across all 366 days of 2024 (trained solely on historical 2023 data):
+
+| Forecasting Task | Model Architecture | $R^2$ Score | MAE | RMSE | MAPE (%) |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **Power Generation (MW)** | **Gradient Boosted Trees (Physics Lags)** | **0.9994** | **1.25 MW** | **2.88 MW** | **0.83%** |
+| Power Generation (MW) | Random Forest Regressor | 0.9982 | 2.13 MW | 4.77 MW | 1.23% |
+| Power Generation (MW) | Ridge Linear Regression | 0.9969 | 3.67 MW | 6.29 MW | 2.47% |
+| **River Inflow ($\text{m}^3/\text{s}$)** | **Gradient Boosted Trees** | **0.9382** | **16.19 $\text{m}^3/\text{s}$** | **26.06 $\text{m}^3/\text{s}$** | **10.68%** |
+| River Inflow ($\text{m}^3/\text{s}$) | Ridge Linear Regression | 0.9510 | 15.29 $\text{m}^3/\text{s}$ | 23.18 $\text{m}^3/\text{s}$ | 10.23% |
+
+### Operational January Forecast with Confidence Bounds
+
+| Parameter | Point Estimate | 95% Confidence Interval | Operational Significance |
+| :--- | :---: | :---: | :--- |
+| **Next January Average Generation** | **52.19 MW** | **[50.22 MW, 54.15 MW]** | Peaking support during winter demand surge |
+| **Expected Water Rate** | **1.71 $\text{m}^3/\text{MWh}$** | **[1.65, 1.78] $\text{m}^3/\text{MWh}$** | High hydraulic efficiency at elevated reservoir |
+
+---
+
+## 6. Analytical Visualizations
+
+### Hydrological Inflow vs Power Generation Trend
+![Inflow vs Power Trend](THDC_Power_Trend.png)
+
+### Model Regression Curve (Out-of-Sample Validation with 95% CI)
+![Inflow vs Power Regression](Inflow_vs_Power_Regression.png)
+
+### Monthly Average Power Seasonality
+![Monthly Average Power](Monthly_Avg_Power.png)
+
+### Reservoir Elevation Tracking vs CWC Rule Curves
+![Reservoir Elevation & Rule Curves](Reservoir_Elevation_Head.png)
+
+---
+
+## 7. Installation & Quickstart
+
+### Prerequisites
+- Python 3.10, 3.11, 3.12, or 3.13 (macOS, Linux, or Windows)
+- Git
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Decoder420/Hydro-Power-Generation-Tehri-Dam-Trend-Analysis-Forecasting.git
+cd Hydro-Power-Generation-Tehri-Dam-Trend-Analysis-Forecasting
+```
+
+### 2. Set Up Virtual Environment & Dependencies
+```bash
+python3 -m venv .venv
+source .venv/bin/activate   # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### 3. Launching Applications
+
+#### Launch National Hydroelectric Operations Web Portal (Recommended)
+```bash
+./run.sh
+# OR
+python3 run.py --port 8000
+```
+Open **`http://localhost:8000`** in any modern web browser.
+
+#### Launch Streamlit Supervisory Console
+```bash
+./run.sh --streamlit
+# OR
+python3 run.py --streamlit
+```
+Open **`http://localhost:8501`** in your browser.
+
+#### Run Batch Analytics & ML Pipeline
+```bash
+./run.sh --pipeline
+# OR
+python3 run.py --cli
+# OR
+python3 hydro_power_analytics.py
+```
+This recomputes physical hydrodynamics, trains machine learning models, executes out-of-sample backtesting, generates production charts, and updates `portal/data/telemetry.json`.
+
+---
+
+## 8. Technical Specifications: Tehri Dam Complex
+
+| Parameter | Value / Range | Engineering Authority |
+| :--- | :--- | :--- |
+| **Dam Type & Height** | 260.5 m Earth & Rockfill Dam (Asia's Highest) | THDC India Limited |
+| **Installed Capacity (Stage-I HPP)** | 1,000 MW (4 × 250 MW Vertical Francis Turbines) | Central Electricity Authority (CEA) |
+| **Pumped Storage Plant (Stage-II PSP)**| 1,000 MW (4 × 250 MW Reversible Francis Turbines)| THDC India Limited |
+| **Full Reservoir Level (FRL)** | 830.0 m above MSL | Central Water Commission (CWC) |
+| **Minimum Drawdown Level (MDDL)** | 740.0 m above MSL | Central Water Commission (CWC) |
+| **Gross Storage Capacity** | 3,540 Million Cubic Meters (MCM) | CWC Reservoir Bulletin |
+| **Live Storage Capacity** | 2,615 Million Cubic Meters (MCM) | CWC Reservoir Bulletin |
+| **Rated Net Hydraulic Head** | 230.0 m (Operating head range: 142 m – 232 m) | BHEL Turbine Design Specifications |
+| **Rated Turbine Discharge** | 500 $\text{m}^3/\text{s}$ (125 $\text{m}^3/\text{s}$ per unit) | THDC Engineering Records |
+| **Catchment Basin Area** | 7,511 $\text{km}^2$ (Bhagirathi & Bhilangana Rivers) | Survey of India / CWC |
+
+---
+
+## 9. Regulatory & References
+
+1. **Central Electricity Authority (CEA), Ministry of Power, Govt. of India** — Daily Hydro Generation Reports & Station Capacity Register.
+2. **Central Water Commission (CWC), Ministry of Jal Shakti, Govt. of India** — Weekly & Daily Reservoir Storage Bulletins for Major Reservoirs.
+3. **THDC India Limited** — Tehri Hydro Power Complex Technical Reports & Operational Guidelines.
+4. **Open-Meteo Historical Weather API** — ECMWF ERA5 Reanalysis for Catchment Coordinates (`30.3782° N, 78.4803° E`).
+5. **Indian Electricity Grid Code (IEGC) & CERC Regulations** — Deviation Settlement Mechanism (DSM) & 15-Minute Scheduling Guidelines.
+
+---
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

@@ -1,0 +1,37 @@
+{
+  "plant_name": "Tehri Hydroelectric Project (HPP Stage-I)",
+  "operator": "THDC India Limited",
+  "river_basin": "Bhagirathi & Bhilangana (Ganga Basin)",
+  "location": {
+    "latitude": 30.3782,
+    "longitude": 78.4803,
+    "catchment_area_sq_km": 7511
+  },
+  "reservoir": {
+    "frl_meters": 830.0,
+    "mddl_meters": 740.0,
+    "crest_elevation_meters": 839.5,
+    "gross_storage_mcm": 3540.0,
+    "live_storage_mcm": 2615.0,
+    "dead_storage_mcm": 925.0,
+    "tailrace_normal_level_meters": 598.0,
+    "max_spillway_capacity_m3_per_s": 15540.0
+  },
+  "powerhouse": {
+    "num_units": 4,
+    "unit_capacity_mw": 250.0,
+    "total_installed_capacity_mw": 1000.0,
+    "turbine_type": "Vertical Shaft Francis",
+    "rated_head_meters": 230.0,
+    "min_head_meters": 142.0,
+    "max_head_meters": 232.0,
+    "rated_discharge_per_unit_m3_per_s": 125.0,
+    "total_max_discharge_m3_per_s": 500.0,
+    "nominal_efficiency": 0.92
+  },
+  "rule_curves": {
+    "monsoon_flood_cushion_level_meters": 825.0,
+    "post_monsoon_target_level_meters": 830.0,
+    "dry_season_buffer_level_meters": 745.0
+  }
+}

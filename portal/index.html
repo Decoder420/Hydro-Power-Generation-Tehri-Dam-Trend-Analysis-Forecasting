@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>National Hydroelectric Operations & Grid Dispatch Portal | Tehri Dam Complex</title>
+  <meta name="description" content="Official Telemetry, Reservoir Rule Curve Management & Day-Ahead Grid Dispatch Decision Support System - THDC India Limited / Central Electricity Authority">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Chart.js for enterprise telemetry rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Tricolor Accent Top Bar -->
+  <div class="gov-tricolor-bar"></div>
+
+  <!-- Gov Top Utility Header -->
+  <header class="gov-top-bar">
+    <div class="live-ticker">
+      <span class="pulse-dot"></span>
+      <span><strong>GRID-INDIA / NRLDC TELEMETRY FEED:</strong> OPERATIONAL</span>
+      <span>|</span>
+      <span>FREQUENCY: <strong>50.02 Hz</strong> (NORMAL)</span>
+      <span>|</span>
+      <span>MERIT ORDER: <strong>PRIORITY MUST-RUN</strong></span>
+    </div>
+    <div>
+      <span id="live-ist-clock">Loading IST...</span>
+      <a href="#accessibility" class="no-print">A- | A | A+</a>
+      <a href="#lang" class="no-print">हिंदी / English</a>
+    </div>
+  </header>
+
+  <!-- Official Ministry Header -->
+  <div class="gov-header">
+    <div class="gov-brand">
+      <!-- National Emblem (State Emblem of India) -->
+      <svg class="emblem-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 10 L58 35 L85 35 L63 50 L72 75 L50 60 L28 75 L37 50 L15 35 L42 35 Z" fill="#d4af37" />
+        <rect x="25" y="85" width="50" height="8" rx="2" fill="#d4af37" />
+        <circle cx="50" cy="89" r="3" fill="#0b2545" />
+        <rect x="20" y="97" width="60" height="6" rx="1" fill="#f3e5ab" />
+        <text x="50" y="115" font-family="'Hind', sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">सत्यमेव जयते</text>
+      </svg>
+      <div class="gov-titles">
+        <div class="gov-sup-title">भारत सरकार | Government of India • विद्युत मंत्रालय | Ministry of Power</div>
+        <div class="gov-main-title">
+          केंद्रीय विद्युत प्राधिकरण | Central Electricity Authority & THDC India Limited
+        </div>
+        <div class="gov-sub-title">
+          राष्ट्रीय जलविद्युत प्रचालन, जलाशय सुरक्षा एवं ग्रिड प्रेषण निर्णय समर्थन प्रणाली (NHOP-DSS)
+          <br><strong style="color:#ffffff;">Tehri Hydro Power Complex (1,000 MW HPP Stage-I & 1,000 MW PSP)</strong>
+        </div>
+      </div>
+    </div>
+    <div class="gov-header-badges no-print">
+      <div class="badge-official badge-gold">
+        CWC DAM SAFETY CERTIFIED
+      </div>
+      <div class="badge-official">
+        NRLDC / POSOCO INTEGRATED
+      </div>
+      <div class="badge-official">
+        CEA FORM-1 DISPATCH GATEWAY
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <nav class="gov-nav-tabs no-print">
+    <button class="nav-tab-btn active" data-tab="tab-scada">
+      Live SCADA & Powerhouse
+    </button>
+    <button class="nav-tab-btn" data-tab="tab-rulecurves">
+      CWC Dam Safety & Rule Curves
+    </button>
+    <button class="nav-tab-btn" data-tab="tab-catchment">
+      Catchment Early Warning (CWC WRIS)
+    </button>
+    <button class="nav-tab-btn" data-tab="tab-dispatch">
+      NRLDC 96-Block Dispatch & DSM
+    </button>
+    <button class="nav-tab-btn" data-tab="tab-simulator">
+      Storm & Spillway S.O.P. Simulator
+    </button>
+    <button class="nav-tab-btn" data-tab="tab-bulletin">
+      Official CEA Form-1 Bulletin
+    </button>
+  </nav>
+
+  <!-- Main Workspace Container -->
+  <main class="main-container">
+
+    <!-- Active Operational Advisory -->
+    <div class="gov-alert-banner">
+      <div class="alert-content">
+        <span class="alert-tag">CWC ADVISORY</span>
+        <div>
+          <strong>RULE CURVE STATUS: NORMAL BUFFER STAGE</strong> — Reservoir storage conforms to Central Water Commission upper flood rule curve guidelines. 4 units available for Northern Regional Grid peaking support.
+        </div>
+      </div>
+      <div style="font-size:0.8rem; color:var(--text-muted);" class="no-print">
+        Telemetry Sync: <strong>1 sec ago</strong>
+      </div>
+    </div>
+
+    <!-- Executive KPI Grid -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">जलाशय स्तर (Reservoir Level)</div>
+        <div class="kpi-value" id="kpi-res-elev">813.50 m</div>
+        <div class="kpi-sub">FRL: 830.0 m | MDDL: 740.0 m</div>
+      </div>
+      <div class="kpi-card kpi-accent">
+        <div class="kpi-label">सक्रिय भंडारण (Live Storage)</div>
+        <div class="kpi-value" id="kpi-res-storage">78.4%</div>
+        <div class="kpi-sub" id="kpi-res-storage-mcm">2780 / 3540 MCM</div>
+      </div>
+      <div class="kpi-card kpi-green">
+        <div class="kpi-label">विद्युत उत्पादन (Active Generation)</div>
+        <div class="kpi-value" id="kpi-power">685.2 MW</div>
+        <div class="kpi-sub">Installed: 1,000 MW (4 × 250 MW)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">नदी अंतर्वाह (River Inflow)</div>
+        <div class="kpi-value" id="kpi-inflow">142.5 m³/s</div>
+        <div class="kpi-sub">Catchment: Bhagirathi + Bhilangana</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">जल दर दक्षता (Water Rate)</div>
+        <div class="kpi-value" id="kpi-water-rate">2,410 m³/MWh</div>
+        <div class="kpi-sub" id="kpi-head">Net Head: 215.5 m</div>
+      </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- TAB 1: LIVE SCADA & POWERHOUSE TELEMETRY                      -->
+    <!-- ============================================================= -->
+    <section id="tab-scada" class="tab-content active">
+      <div class="content-row">
+        
+        <!-- Left: Dam Elevation Cross Section Gauge -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              टिहरी जलाशय जलस्तर गेज (Tehri Reservoir Level Gauge)
+            </div>
+            <span class="badge-official" style="color:var(--gov-navy); background:#f1f5f9; border-color:#cbd5e1;">
+              DATUM: MEAN SEA LEVEL (MSL)
+            </span>
+          </div>
+          <div class="reservoir-gauge-container">
+            <div class="dam-cross-section">
+              <div class="gauge-marker marker-crest">Crest 839.5m</div>
+              <div class="gauge-marker marker-frl">FRL 830.0m</div>
+              <div class="gauge-marker marker-cushion">Flood 825.0m</div>
+              <div class="gauge-marker marker-current" id="marker-current">Current: 813.5m</div>
+              <div class="gauge-marker marker-mddl">MDDL 740.0m</div>
+              <div class="water-body" id="water-body" style="height: 75%;"></div>
+            </div>
+            <div class="gauge-details">
+              <div class="gauge-data-row">
+                <span>Gross Storage Capacity:</span>
+                <strong>3,540.0 Million m³ (MCM)</strong>
+              </div>
+              <div class="gauge-data-row">
+                <span>Active Live Storage:</span>
+                <strong>2,615.0 Million m³ (MCM)</strong>
+              </div>
+              <div class="gauge-data-row">
+                <span>Dead Storage Volume:</span>
+                <strong>925.0 Million m³ (MCM)</strong>
+              </div>
+              <div class="gauge-data-row">
+                <span>Spillway Crest Elevation:</span>
+                <strong>815.0 m MSL (Chute + Shaft)</strong>
+              </div>
+              <div class="gauge-data-row">
+                <span>Normal Tailrace Level (TRL):</span>
+                <strong>598.0 m MSL (Koteshwar Pond)</strong>
+              </div>
+              <div class="gauge-data-row">
+                <span>Effective Net Hydraulic Head:</span>
+                <strong style="color:var(--gov-navy);">215.5 meters</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 4-Unit SCADA Telemetry Board -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              विद्युतगृह टरबाइन स्थिति (Powerhouse Unit SCADA Status)
+            </div>
+            <span class="badge-official" style="color:#15803d; background:#dcfce7; border-color:#86efac;">
+              GRID SYNCHRONIZED
+            </span>
+          </div>
+          <div class="units-grid" id="units-grid">
+            <!-- Populated dynamically by app.js -->
+          </div>
+          <div style="margin-top:16px; font-size:0.8rem; color:var(--text-muted); background:#f8fafc; padding:8px 12px; border-radius:4px;">
+            <strong>Turbine Hill Efficiency:</strong> Francis units operate at <strong>92.8%</strong> hydraulic efficiency. Unit 4 in standby spinning reserve for grid peak absorption.
+          </div>
+        </div>
+      </div>
+
+      <!-- Historical Operational Trends -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            2-वर्षीय अंतर्वाह एवं विद्युत उत्पादन इतिहास (2-Year Hydrological Inflow vs Generation Trend)
+          </div>
+          <span style="font-size:0.8rem; color:var(--text-muted);">Calibrated with Open-Meteo & CEA Bulletins</span>
+        </div>
+        <div style="height: 320px;">
+          <canvas id="chart-history-trend"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- TAB 2: CWC DAM SAFETY & RULE CURVES                           -->
+    <!-- ============================================================= -->
+    <section id="tab-rulecurves" class="tab-content">
+      <div class="content-row">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              केंद्रीय जल आयोग नियम वक्र (CWC Reservoir Rule Curves)
+            </div>
+          </div>
+          <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:14px;">
+            The reservoir rule curve dictates mandatory storage targets to prevent catastrophic downstream flooding while ensuring adequate carryover storage for winter drinking water and peaking power.
+          </p>
+          <div style="height: 300px;">
+            <canvas id="chart-reservoir-elevation"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              जलाशय सुरक्षा परिचालन स्तर (Reservoir Safety Levels)
+            </div>
+          </div>
+          <table class="gov-table">
+            <thead>
+              <tr>
+                <th>Level Description</th>
+                <th>Elevation (m)</th>
+                <th>Storage (MCM)</th>
+                <th>Operational Directive</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dam Crest Level</strong></td>
+                <td>839.5 m</td>
+                <td>4,100 MCM</td>
+                <td><span style="color:#ef4444; font-weight:700;">Overtopping Hazard</span></td>
+              </tr>
+              <tr>
+                <td><strong>Full Reservoir Level (FRL)</strong></td>
+                <td>830.0 m</td>
+                <td>3,540 MCM</td>
+                <td>Maximum normal conservation level</td>
+              </tr>
+              <tr>
+                <td><strong>Monsoon Flood Cushion</strong></td>
+                <td>825.0 m</td>
+                <td>3,250 MCM</td>
+                <td>Mandatory flood absorption buffer</td>
+              </tr>
+              <tr>
+                <td><strong>Pre-Monsoon Drawdown</strong></td>
+                <td>765.0 m</td>
+                <td>1,420 MCM</td>
+                <td>Target level before monsoon onset</td>
+              </tr>
+              <tr>
+                <td><strong>Minimum Drawdown (MDDL)</strong></td>
+                <td>740.0 m</td>
+                <td>925 MCM</td>
+                <td>Turbine cutoff level (Dead storage)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- TAB 3: CATCHMENT EARLY WARNING (CWC WRIS)                     -->
+    <!-- ============================================================= -->
+    <section id="tab-catchment" class="tab-content">
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div class="card-title">
+            भागीरथी-भिलंगना बेसिन गेज नेटवर्क (Bhagirathi-Bhilangana Basin Hydrological Gauges)
+          </div>
+          <span class="badge-official" style="color:#15803d; background:#dcfce7; border-color:#86efac;">
+            ALL STATIONS OPERATIONAL
+          </span>
+        </div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">
+          Telemetry received every 15 minutes from automated telemetry stations (IMD/CWC) in the 7,511 km² catchment area.
+        </p>
+        <table class="gov-table">
+          <thead>
+            <tr>
+              <th>Station Name</th>
+              <th>Elevation (m MSL)</th>
+              <th>Upstream Distance</th>
+              <th>Current River Level</th>
+              <th>Recorded Discharge</th>
+              <th>Flood Status</th>
+            </tr>
+          </thead>
+          <tbody id="stations-table-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- TAB 4: NRLDC 96-BLOCK DISPATCH & DSM CALCULATOR               -->
+    <!-- ============================================================= -->
+    <section id="tab-dispatch" class="tab-content">
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <div class="card-title">
+            96-टाइम-ब्लॉक दैनिक उत्पादन अनुसूची (NRLDC 96-Block Generation Schedule)
+          </div>
+          <span class="badge-official" style="color:var(--gov-navy); background:#f1f5f9;">
+            IEGC 2023 COMPLIANT • 15-MIN INTERVALS
+          </span>
+        </div>
+        <div style="height: 320px;">
+          <canvas id="chart-96-schedule"></canvas>
+        </div>
+      </div>
+
+      <div class="content-row">
+        <!-- DSM Calculator -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              विचलन निपटान तंत्र (Deviation Settlement Mechanism - DSM Calculator)
+            </div>
+          </div>
+          <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:12px;">
+            Simulate financial deviation penalties or incentives under Central Electricity Regulatory Commission (CERC) DSM regulations.
+          </p>
+          <div class="form-group">
+            <label class="form-label">Scheduled Dispatch (MW):</label>
+            <input type="number" id="dsm-sched-mw" class="form-input" value="650">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Actual Injected Generation (MW):</label>
+            <input type="number" id="dsm-act-mw" class="form-input" value="620">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Grid System Frequency (Hz):</label>
+            <input type="number" id="dsm-grid-freq" class="form-input" value="49.98" step="0.01">
+          </div>
+          <div id="dsm-result-box" style="background:#f8fafc; border:1px solid #cbd5e1; padding:12px; border-radius:6px;">
+            <!-- Calculated by JS -->
+          </div>
+        </div>
+
+        <!-- Merit Order Economics -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              मेरिट ऑर्डर एवं ग्रिड अर्थशास्त्र (Merit Order Dispatch Economics)
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px; font-size:0.85rem;">
+            <div class="gauge-data-row">
+              <span>Energy Charge Rate (ECR):</span>
+              <strong>₹ 1.85 per kWh (Ultra-Low)</strong>
+            </div>
+            <div class="gauge-data-row">
+              <span>Capacity Charge / Availability:</span>
+              <strong>98.5% Plant Availability Factor (PAF)</strong>
+            </div>
+            <div class="gauge-data-row">
+              <span>Spinning Reserve Response Time:</span>
+              <strong>Under 90 Seconds to 1,000 MW</strong>
+            </div>
+            <div class="gauge-data-row">
+              <span>Ramp Rate Capability:</span>
+              <strong>± 200 MW / minute</strong>
+            </div>
+            <div class="gauge-data-row">
+              <span>Carbon Offset Contribution:</span>
+              <strong>~ 3.2 Million Tons CO₂ / Year</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- TAB 5: STORMS & SPILLWAY S.O.P. SIMULATOR                     -->
+    <!-- ============================================================= -->
+    <section id="tab-simulator" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            चरम जलवैज्ञानिक घटना एवं स्पिलवे एसओपी (Extreme Storm & Spillway S.O.P. Simulator)
+          </div>
+          <span id="sim-total-spill" class="badge-official" style="color:#15803d; font-weight:700;">
+            Safe (Zero Spilling)
+          </span>
+        </div>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
+          Simulate multi-day cloudbursts or heavy monsoon storm fronts over the Tehri catchment to evaluate reservoir buffer security, turbine release options, and chute spillway activation risk.
+        </p>
+        
+        <div class="content-row">
+          <div class="form-group">
+            <label class="form-label">Catchment Storm Rainfall (mm over 4 days):</label>
+            <div class="slider-container">
+              <input type="range" id="sim-rain-input" min="0" max="250" value="80" step="5" style="flex:1;">
+              <span class="slider-val" id="sim-rain-val">80 mm</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Operational Turbine Discharge (m³/s):</label>
+            <div class="slider-container">
+              <input type="range" id="sim-turb-input" min="50" max="500" value="380" step="25" style="flex:1;">
+              <span class="slider-val" id="sim-turb-val">380 m³/s</span>
+            </div>
+          </div>
+        </div>
+
+        <table class="gov-table" style="margin-top:10px;">
+          <thead>
+            <tr>
+              <th>Horizon</th>
+              <th>Storm Rainfall</th>
+              <th>Inflow (m³/s)</th>
+              <th>Turbine Release</th>
+              <th>Spillway Release</th>
+              <th>Reservoir Elevation</th>
+              <th>Power (MW)</th>
+              <th>Daily Energy</th>
+            </tr>
+          </thead>
+          <tbody id="sim-table-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- TAB 6: OFFICIAL CEA FORM-1 HYDRO BULLETIN                     -->
+    <!-- ============================================================= -->
+    <section id="tab-bulletin" class="tab-content">
+      <div class="card" id="printable-bulletin">
+        <div style="border-bottom:2px solid #000; padding-bottom:12px; margin-bottom:16px; text-align:center;">
+          <div style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">भारत सरकार | GOVERNMENT OF INDIA</div>
+          <div style="font-size:1.1rem; font-weight:800; color:var(--gov-navy);">केंद्रीय विद्युत प्राधिकरण | CENTRAL ELECTRICITY AUTHORITY</div>
+          <div style="font-size:0.82rem; font-weight:600;">NEW DELHI - HYDRO MONITORING DIVISION</div>
+          <div style="font-size:0.95rem; font-weight:700; margin-top:6px; background:#f1f5f9; padding:4px;">
+            FORM CEA-HYDRO-1: DAILY GENERATION, INFLOW & RESERVOIR STATUS REPORT
+          </div>
+          <div style="font-size:0.78rem; margin-top:4px;">
+            Station: <strong>TEHRI HPP STAGE-I (4 × 250 MW = 1,000 MW)</strong> | THDC India Limited | Report Ref: <strong>CEA/HMD/THDC/2026-09/07</strong>
+          </div>
+        </div>
+
+        <table class="gov-table" style="border:1px solid #cbd5e1; margin-bottom:16px;">
+          <tbody>
+            <tr>
+              <td style="width:30%;"><strong>Reporting Date:</strong></td>
+              <td>07-Sep-2026 (00:00 to 24:00 hrs)</td>
+              <td style="width:25%;"><strong>Installed Capacity:</strong></td>
+              <td>1,000.00 MW</td>
+            </tr>
+            <tr>
+              <td><strong>Reservoir Water Level:</strong></td>
+              <td>813.50 m MSL</td>
+              <td><strong>Full Reservoir Level (FRL):</strong></td>
+              <td>830.00 m MSL</td>
+            </tr>
+            <tr>
+              <td><strong>Live Storage Available:</strong></td>
+              <td>2,052.40 MCM (78.4%)</td>
+              <td><strong>Minimum Drawdown (MDDL):</strong></td>
+              <td>740.00 m MSL</td>
+            </tr>
+            <tr>
+              <td><strong>Average River Inflow:</strong></td>
+              <td>142.50 m³/s</td>
+              <td><strong>Effective Net Head:</strong></td>
+              <td>215.50 meters</td>
+            </tr>
+            <tr>
+              <td><strong>Turbine Water Discharged:</strong></td>
+              <td>12,312,000 m³ (142.5 m³/s avg)</td>
+              <td><strong>Spillway Water Spilled:</strong></td>
+              <td>NIL (0.00 m³/s)</td>
+            </tr>
+            <tr>
+              <td><strong>Daily Gross Generation:</strong></td>
+              <td>16,444.80 MWh (16.44 MU)</td>
+              <td><strong>Water Consumption Rate:</strong></td>
+              <td>2,410 m³ / MWh</td>
+            </tr>
+            <tr>
+              <td><strong>Plant Availability Factor (PAF):</strong></td>
+              <td>100.00% (All 4 Units Operational)</td>
+              <td><strong>Machine Outage Status:</strong></td>
+              <td>NIL</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="display:flex; justify-content:space-between; margin-top:30px; font-size:0.82rem; padding:0 20px;">
+          <div>
+            <div>Prepared By:</div>
+            <strong style="text-decoration:underline;">Executive Engineer (SCADA / Dispatch)</strong>
+            <div>Tehri Control Room, THDC India Ltd.</div>
+          </div>
+          <div>
+            <div>Verified & Approved By:</div>
+            <strong style="text-decoration:underline;">Chief General Manager (Power & Reservoir)</strong>
+            <div>THDC India Limited / NRLDC Liaison</div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px; text-align:right;" class="no-print">
+          <button class="btn-primary" onclick="window.print()">
+            Print / Save Official CEA Report (PDF)
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Official Footer -->
+  <footer class="gov-footer no-print">
+    <div class="footer-content">
+      <div>
+        <div style="font-weight:700; color:#ffffff; font-size:0.95rem; margin-bottom:4px;">
+          राष्ट्रीय जलविद्युत प्रचालन एवं ग्रिड प्रेषण पोर्टल (NHOP-DSS)
+        </div>
+        <div>
+          Managed by THDC India Limited in coordination with Central Electricity Authority (CEA) and Grid-India (NRLDC).
+        </div>
+        <div style="font-size:0.75rem; margin-top:6px; color:#64748b;">
+          Content Owned & Maintained by Ministry of Power, Government of India. Designed for IEGC 2023 Grid Standards.
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="https://powermin.gov.in" target="_blank">Ministry of Power</a>
+        <a href="https://cea.nic.in" target="_blank">Central Electricity Authority</a>
+        <a href="https://cwc.gov.in" target="_blank">Central Water Commission</a>
+        <a href="https://grid-india.in" target="_blank">Grid-India / NRLDC</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
