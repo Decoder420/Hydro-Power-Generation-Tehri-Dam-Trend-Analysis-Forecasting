@@ -1,6 +1,7 @@
-name = "hydro-power-generation-tehri-dam-trend-analysis-forecasting"
+name = "tehri-hydro-portal"
 main = "worker.js"
 compatibility_date = "2024-09-23"
+preview_urls = false
 
 [assets]
 directory = "./portal"

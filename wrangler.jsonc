@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tehri-hydro-portal",
+  "main": "worker.js",
+  "compatibility_date": "2024-09-23",
+  "preview_urls": false,
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./portal",
+    "binding": "ASSETS"
+  }
+}
