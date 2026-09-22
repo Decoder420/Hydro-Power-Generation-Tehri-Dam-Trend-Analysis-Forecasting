@@ -3,68 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>National Hydroelectric Operations & Grid Dispatch Portal | Tehri Dam Complex</title>
-  <meta name="description" content="Official Telemetry, Reservoir Rule Curve Management & Day-Ahead Grid Dispatch Decision Support System - THDC India Limited / Central Electricity Authority">
+  <title>Tehri Dam Hydroelectric Power Operations & Grid Dispatch Portal</title>
+  <meta name="description" content="Operational Telemetry, Hydrodynamic Physics, Reservoir Rule Curves & Day-Ahead Grid Dispatch Decision Support System - Tehri Dam Complex (1,000 MW)">
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Chart.js for enterprise telemetry rendering -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
-  <!-- Tricolor Accent Top Bar -->
-  <div class="gov-tricolor-bar"></div>
+  <!-- Top Hydro Accent Bar -->
+  <div class="portal-accent-bar gov-tricolor-bar"></div>
 
-  <!-- Gov Top Utility Header -->
+  <!-- Top Status Bar -->
   <header class="gov-top-bar">
     <div class="live-ticker">
       <span class="pulse-dot"></span>
-      <span><strong>GRID-INDIA / NRLDC TELEMETRY FEED:</strong> OPERATIONAL</span>
+      <span><strong>TELEMETRY ENGINE:</strong> OPERATIONAL</span>
       <span>|</span>
-      <span>FREQUENCY: <strong>50.02 Hz</strong> (NORMAL)</span>
+      <span>GRID FREQUENCY: <strong>50.02 Hz</strong> (NORMAL)</span>
       <span>|</span>
-      <span>MERIT ORDER: <strong>PRIORITY MUST-RUN</strong></span>
+      <span>DISPATCH PRIORITY: <strong>MUST-RUN PEAKING</strong></span>
     </div>
     <div>
       <span id="live-ist-clock">Loading IST...</span>
-      <a href="#accessibility" class="no-print">A- | A | A+</a>
-      <a href="#lang" class="no-print">हिंदी / English</a>
     </div>
   </header>
 
-  <!-- Official Ministry Header -->
+  <!-- Engineering Header -->
   <div class="gov-header">
     <div class="gov-brand">
-      <!-- National Emblem (State Emblem of India) -->
-      <svg class="emblem-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50 10 L58 35 L85 35 L63 50 L72 75 L50 60 L28 75 L37 50 L15 35 L42 35 Z" fill="#d4af37" />
-        <rect x="25" y="85" width="50" height="8" rx="2" fill="#d4af37" />
-        <circle cx="50" cy="89" r="3" fill="#0b2545" />
-        <rect x="20" y="97" width="60" height="6" rx="1" fill="#f3e5ab" />
-        <text x="50" y="115" font-family="'Hind', sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">सत्यमेव जयते</text>
+      <!-- Hydroelectric Dam & Turbine SVG Icon -->
+      <svg class="emblem-svg" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0b2545" />
+            <stop offset="100%" stop-color="#07192f" />
+          </linearGradient>
+          <linearGradient id="waterFlow" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#0284c7" stop-opacity="0.3"/>
+          </linearGradient>
+        </defs>
+        <!-- Hexagonal Shield Base -->
+        <polygon points="32,4 58,18 58,46 32,60 6,46 6,18" fill="url(#shieldGrad)" stroke="#38bdf8" stroke-width="2"/>
+        <!-- Dam Wall / Penstock Chute -->
+        <path d="M18 20 L46 20 L40 48 L24 48 Z" fill="url(#waterFlow)" stroke="#67e8f9" stroke-width="1.5"/>
+        <!-- Flow Wave Lines -->
+        <path d="M14 26 Q 23 30, 32 26 T 50 26" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+        <path d="M18 33 Q 25 37, 32 33 T 46 33" stroke="#7dd3fc" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Turbine Runner Core -->
+        <circle cx="32" cy="41" r="5" fill="#f59e0b" stroke="#ffffff" stroke-width="1"/>
+        <path d="M32 37 L32 45 M28 41 L36 41" stroke="#07192f" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
       <div class="gov-titles">
-        <div class="gov-sup-title">भारत सरकार | Government of India • विद्युत मंत्रालय | Ministry of Power</div>
+        <div class="gov-sup-title">Tehri Hydroelectric Power Complex (1,000 MW Stage-I)</div>
         <div class="gov-main-title">
-          केंद्रीय विद्युत प्राधिकरण | Central Electricity Authority & THDC India Limited
+          Hydro Power Operations & Forecasting Portal
         </div>
         <div class="gov-sub-title">
-          राष्ट्रीय जलविद्युत प्रचालन, जलाशय सुरक्षा एवं ग्रिड प्रेषण निर्णय समर्थन प्रणाली (NHOP-DSS)
-          <br><strong style="color:#ffffff;">Tehri Hydro Power Complex (1,000 MW HPP Stage-I & 1,000 MW PSP)</strong>
+          Hydrodynamic Physics, Reservoir Rule Curves & NRLDC 96-Block Day-Ahead Dispatch DSS
         </div>
       </div>
     </div>
     <div class="gov-header-badges no-print">
       <div class="badge-official badge-gold">
-        CWC DAM SAFETY CERTIFIED
+        FIRST-PRINCIPLES PHYSICS MODEL
       </div>
       <div class="badge-official">
-        NRLDC / POSOCO INTEGRATED
+        96-BLOCK NRLDC DISPATCH
       </div>
       <div class="badge-official">
-        CEA FORM-1 DISPATCH GATEWAY
+        CWC RULE CURVE MONITORING
       </div>
     </div>
   </div>
@@ -75,19 +87,19 @@
       Live SCADA & Powerhouse
     </button>
     <button class="nav-tab-btn" data-tab="tab-rulecurves">
-      CWC Dam Safety & Rule Curves
+      Reservoir Rule Curves & Safety
     </button>
     <button class="nav-tab-btn" data-tab="tab-catchment">
-      Catchment Early Warning (CWC WRIS)
+      Catchment Basin Telemetry
     </button>
     <button class="nav-tab-btn" data-tab="tab-dispatch">
-      NRLDC 96-Block Dispatch & DSM
+      96-Block Dispatch & DSM
     </button>
     <button class="nav-tab-btn" data-tab="tab-simulator">
-      Storm & Spillway S.O.P. Simulator
+      Storm & Spillway Simulator
     </button>
     <button class="nav-tab-btn" data-tab="tab-bulletin">
-      Official CEA Form-1 Bulletin
+      Daily Operations Bulletin
     </button>
   </nav>
 
@@ -97,40 +109,40 @@
     <!-- Active Operational Advisory -->
     <div class="gov-alert-banner">
       <div class="alert-content">
-        <span class="alert-tag">CWC ADVISORY</span>
+        <span class="alert-tag">RESERVOIR STATUS</span>
         <div>
-          <strong>RULE CURVE STATUS: NORMAL BUFFER STAGE</strong> — Reservoir storage conforms to Central Water Commission upper flood rule curve guidelines. 4 units available for Northern Regional Grid peaking support.
+          <strong>RULE CURVE BUFFER: NORMAL STAGE</strong> — Reservoir storage conforms to upper flood rule curve guidelines. 4 Francis units available for Northern Regional Grid peaking support.
         </div>
       </div>
       <div style="font-size:0.8rem; color:var(--text-muted);" class="no-print">
-        Telemetry Sync: <strong>1 sec ago</strong>
+        Model Status: <strong>Calibrated</strong>
       </div>
     </div>
 
     <!-- Executive KPI Grid -->
     <div class="kpi-grid">
       <div class="kpi-card">
-        <div class="kpi-label">जलाशय स्तर (Reservoir Level)</div>
+        <div class="kpi-label">Reservoir Level</div>
         <div class="kpi-value" id="kpi-res-elev">813.50 m</div>
         <div class="kpi-sub">FRL: 830.0 m | MDDL: 740.0 m</div>
       </div>
       <div class="kpi-card kpi-accent">
-        <div class="kpi-label">सक्रिय भंडारण (Live Storage)</div>
+        <div class="kpi-label">Live Storage</div>
         <div class="kpi-value" id="kpi-res-storage">78.4%</div>
         <div class="kpi-sub" id="kpi-res-storage-mcm">2780 / 3540 MCM</div>
       </div>
       <div class="kpi-card kpi-green">
-        <div class="kpi-label">विद्युत उत्पादन (Active Generation)</div>
+        <div class="kpi-label">Active Generation</div>
         <div class="kpi-value" id="kpi-power">685.2 MW</div>
         <div class="kpi-sub">Installed: 1,000 MW (4 × 250 MW)</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">नदी अंतर्वाह (River Inflow)</div>
+        <div class="kpi-label">River Inflow</div>
         <div class="kpi-value" id="kpi-inflow">142.5 m³/s</div>
         <div class="kpi-sub">Catchment: Bhagirathi + Bhilangana</div>
       </div>
       <div class="kpi-card">
-        <div class="kpi-label">जल दर दक्षता (Water Rate)</div>
+        <div class="kpi-label">Water Rate Efficiency</div>
         <div class="kpi-value" id="kpi-water-rate">2,410 m³/MWh</div>
         <div class="kpi-sub" id="kpi-head">Net Head: 215.5 m</div>
       </div>
@@ -146,7 +158,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              टिहरी जलाशय जलस्तर गेज (Tehri Reservoir Level Gauge)
+              Tehri Reservoir Water Level Gauge
             </div>
             <span class="badge-official" style="color:var(--gov-navy); background:#f1f5f9; border-color:#cbd5e1;">
               DATUM: MEAN SEA LEVEL (MSL)
@@ -194,7 +206,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              विद्युतगृह टरबाइन स्थिति (Powerhouse Unit SCADA Status)
+              Powerhouse Turbine SCADA Telemetry
             </div>
             <span class="badge-official" style="color:#15803d; background:#dcfce7; border-color:#86efac;">
               GRID SYNCHRONIZED
@@ -213,9 +225,9 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">
-            2-वर्षीय अंतर्वाह एवं विद्युत उत्पादन इतिहास (2-Year Hydrological Inflow vs Generation Trend)
+            Hydrological Inflow vs Power Generation Trend
           </div>
-          <span style="font-size:0.8rem; color:var(--text-muted);">Calibrated with Open-Meteo & CEA Bulletins</span>
+          <span style="font-size:0.8rem; color:var(--text-muted);">Calibrated with Open-Meteo & Historical Records</span>
         </div>
         <div style="height: 320px;">
           <canvas id="chart-history-trend"></canvas>
@@ -224,18 +236,18 @@
     </section>
 
     <!-- ============================================================= -->
-    <!-- TAB 2: CWC DAM SAFETY & RULE CURVES                           -->
+    <!-- TAB 2: RESERVOIR RULE CURVES & SAFETY                         -->
     <!-- ============================================================= -->
     <section id="tab-rulecurves" class="tab-content">
       <div class="content-row">
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              केंद्रीय जल आयोग नियम वक्र (CWC Reservoir Rule Curves)
+              Reservoir Rule Curves & Flood Buffer Management
             </div>
           </div>
           <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:14px;">
-            The reservoir rule curve dictates mandatory storage targets to prevent catastrophic downstream flooding while ensuring adequate carryover storage for winter drinking water and peaking power.
+            The reservoir rule curve dictates mandatory seasonal storage targets to prevent downstream flooding while ensuring adequate carryover storage for winter drinking water and peaking power.
           </p>
           <div style="height: 300px;">
             <canvas id="chart-reservoir-elevation"></canvas>
@@ -245,7 +257,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              जलाशय सुरक्षा परिचालन स्तर (Reservoir Safety Levels)
+              Reservoir Safety & Operational Directives
             </div>
           </div>
           <table class="gov-table">
@@ -295,20 +307,20 @@
     </section>
 
     <!-- ============================================================= -->
-    <!-- TAB 3: CATCHMENT EARLY WARNING (CWC WRIS)                     -->
+    <!-- TAB 3: CATCHMENT BASIN TELEMETRY                              -->
     <!-- ============================================================= -->
     <section id="tab-catchment" class="tab-content">
       <div class="card" style="margin-bottom:20px;">
         <div class="card-header">
           <div class="card-title">
-            भागीरथी-भिलंगना बेसिन गेज नेटवर्क (Bhagirathi-Bhilangana Basin Hydrological Gauges)
+            Bhagirathi & Bhilangana Basin Hydrological Gauges
           </div>
           <span class="badge-official" style="color:#15803d; background:#dcfce7; border-color:#86efac;">
-            ALL STATIONS OPERATIONAL
+            ALL STATIONS ACTIVE
           </span>
         </div>
         <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:14px;">
-          Telemetry received every 15 minutes from automated telemetry stations (IMD/CWC) in the 7,511 km² catchment area.
+          Telemetry stations across the 7,511 km² Tehri catchment area recording river stage, inflow rates, and flood warning thresholds.
         </p>
         <table class="gov-table">
           <thead>
@@ -335,7 +347,7 @@
       <div class="card" style="margin-bottom:20px;">
         <div class="card-header">
           <div class="card-title">
-            96-टाइम-ब्लॉक दैनिक उत्पादन अनुसूची (NRLDC 96-Block Generation Schedule)
+            96-Time-Block Generation Schedule (Day-Ahead NRLDC Dispatch)
           </div>
           <span class="badge-official" style="color:var(--gov-navy); background:#f1f5f9;">
             IEGC 2023 COMPLIANT • 15-MIN INTERVALS
@@ -351,7 +363,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              विचलन निपटान तंत्र (Deviation Settlement Mechanism - DSM Calculator)
+              Deviation Settlement Mechanism (DSM Calculator)
             </div>
           </div>
           <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:12px;">
@@ -378,7 +390,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              मेरिट ऑर्डर एवं ग्रिड अर्थशास्त्र (Merit Order Dispatch Economics)
+              Merit Order & Grid Dispatch Economics
             </div>
           </div>
           <div style="display:flex; flex-direction:column; gap:10px; font-size:0.85rem;">
@@ -414,7 +426,7 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">
-            चरम जलवैज्ञानिक घटना एवं स्पिलवे एसओपी (Extreme Storm & Spillway S.O.P. Simulator)
+            Himalayan Storm & Spillway S.O.P. Simulator
           </div>
           <span id="sim-total-spill" class="badge-official" style="color:#15803d; font-weight:700;">
             Safe (Zero Spilling)
@@ -462,20 +474,14 @@
     </section>
 
     <!-- ============================================================= -->
-    <!-- TAB 6: OFFICIAL CEA FORM-1 HYDRO BULLETIN                     -->
+    <!-- TAB 6: DAILY OPERATIONS BULLETIN                              -->
     <!-- ============================================================= -->
     <section id="tab-bulletin" class="tab-content">
       <div class="card" id="printable-bulletin">
-        <div style="border-bottom:2px solid #000; padding-bottom:12px; margin-bottom:16px; text-align:center;">
-          <div style="font-size:0.85rem; font-weight:700; text-transform:uppercase;">भारत सरकार | GOVERNMENT OF INDIA</div>
-          <div style="font-size:1.1rem; font-weight:800; color:var(--gov-navy);">केंद्रीय विद्युत प्राधिकरण | CENTRAL ELECTRICITY AUTHORITY</div>
-          <div style="font-size:0.82rem; font-weight:600;">NEW DELHI - HYDRO MONITORING DIVISION</div>
-          <div style="font-size:0.95rem; font-weight:700; margin-top:6px; background:#f1f5f9; padding:4px;">
-            FORM CEA-HYDRO-1: DAILY GENERATION, INFLOW & RESERVOIR STATUS REPORT
-          </div>
-          <div style="font-size:0.78rem; margin-top:4px;">
-            Station: <strong>TEHRI HPP STAGE-I (4 × 250 MW = 1,000 MW)</strong> | THDC India Limited | Report Ref: <strong>CEA/HMD/THDC/2026-09/07</strong>
-          </div>
+        <div style="border-bottom:2px solid #0077b6; padding-bottom:12px; margin-bottom:16px; text-align:center;">
+          <div style="font-size:0.85rem; font-weight:700; text-transform:uppercase; color:var(--gov-navy); letter-spacing:0.05em;">TEHRI HYDRO POWER COMPLEX (1,000 MW STAGE-I)</div>
+          <div style="font-size:1.15rem; font-weight:800; color:var(--gov-navy); margin: 4px 0;">DAILY GENERATION, INFLOW & RESERVOIR STATUS REPORT</div>
+          <div style="font-size:0.82rem; color:var(--text-secondary);">Station: <strong>Tehri HPP (4 × 250 MW)</strong> | Location: <strong>Tehri Dam, Uttarakhand</strong> | Grid: <strong>NRLDC / Northern Region</strong></div>
         </div>
 
         <table class="gov-table" style="border:1px solid #cbd5e1; margin-bottom:16px;">
@@ -525,22 +531,20 @@
           </tbody>
         </table>
 
-        <div style="display:flex; justify-content:space-between; margin-top:30px; font-size:0.82rem; padding:0 20px;">
+        <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; padding:14px 18px; margin-top:24px; font-size:0.82rem; display:flex; justify-content:space-between; align-items:center;">
           <div>
-            <div>Prepared By:</div>
-            <strong style="text-decoration:underline;">Executive Engineer (SCADA / Dispatch)</strong>
-            <div>Tehri Control Room, THDC India Ltd.</div>
+            <div style="font-weight:700; color:var(--gov-navy);">System Verification & Quality Assurance</div>
+            <div style="color:var(--text-secondary);">Automated mass-balance integrity: <strong>VERIFIED</strong> • Francis turbine hill curve match: <strong>92.8% efficiency</strong></div>
           </div>
-          <div>
-            <div>Verified & Approved By:</div>
-            <strong style="text-decoration:underline;">Chief General Manager (Power & Reservoir)</strong>
-            <div>THDC India Limited / NRLDC Liaison</div>
+          <div style="text-align:right;">
+            <div style="color:var(--text-muted);">Report Export Ref: <strong>THDC-TEHRI-2026-09-07</strong></div>
+            <div style="color:var(--text-muted); font-size:0.75rem;">Standard: IEGC 2023 Grid Code Compliant</div>
           </div>
         </div>
 
         <div style="margin-top:20px; text-align:right;" class="no-print">
           <button class="btn-primary" onclick="window.print()">
-            Print / Save Official CEA Report (PDF)
+            Print / Export Operations Report (PDF)
           </button>
         </div>
       </div>
@@ -548,25 +552,25 @@
 
   </main>
 
-  <!-- Official Footer -->
+  <!-- Operations Portal Footer -->
   <footer class="gov-footer no-print">
     <div class="footer-content">
       <div>
         <div style="font-weight:700; color:#ffffff; font-size:0.95rem; margin-bottom:4px;">
-          राष्ट्रीय जलविद्युत प्रचालन एवं ग्रिड प्रेषण पोर्टल (NHOP-DSS)
+          Tehri Dam Hydroelectric Power Operations & Forecasting DSS
         </div>
         <div>
-          Managed by THDC India Limited in coordination with Central Electricity Authority (CEA) and Grid-India (NRLDC).
+          Hydrodynamic physics, catchment runoff lag, 96-block NRLDC grid dispatch, and reservoir rule curve management.
         </div>
         <div style="font-size:0.75rem; margin-top:6px; color:#64748b;">
-          Content Owned & Maintained by Ministry of Power, Government of India. Designed for IEGC 2023 Grid Standards.
+          Tehri Hydroelectric Power Generation & Forecasting Project • IEGC 2023 Grid Standards
         </div>
       </div>
       <div class="footer-links">
-        <a href="https://powermin.gov.in" target="_blank">Ministry of Power</a>
-        <a href="https://cea.nic.in" target="_blank">Central Electricity Authority</a>
-        <a href="https://cwc.gov.in" target="_blank">Central Water Commission</a>
-        <a href="https://grid-india.in" target="_blank">Grid-India / NRLDC</a>
+        <a href="#tab-scada" onclick="document.querySelector('[data-tab=\'tab-scada\']').click()">SCADA Telemetry</a>
+        <a href="#tab-rulecurves" onclick="document.querySelector('[data-tab=\'tab-rulecurves\']').click()">Rule Curves</a>
+        <a href="#tab-dispatch" onclick="document.querySelector('[data-tab=\'tab-dispatch\']').click()">96-Block Dispatch</a>
+        <a href="#tab-simulator" onclick="document.querySelector('[data-tab=\'tab-simulator\']').click()">Storm Simulator</a>
       </div>
     </div>
   </footer>

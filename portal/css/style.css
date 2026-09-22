@@ -43,10 +43,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- Tricolor Accent Stripe --- */
-.gov-tricolor-bar {
+/* --- Top Accent Stripe --- */
+.gov-tricolor-bar, .portal-accent-bar {
   height: 4px;
-  background: linear-gradient(90deg, #ff9933 0%, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%, #138808 100%);
+  background: linear-gradient(90deg, #0284c7 0%, #06b6d4 35%, #10b981 70%, #3b82f6 100%);
   width: 100%;
 }
 
